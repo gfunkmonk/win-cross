@@ -43,9 +43,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target:
-          - x86_64-w64-mingw32
-          - i686-w64-mingw32
+        target: [i686-w64-mingw32, x86_64-w64-mingw32]
     steps:
       - if: '${{ inputs.freespace }}'
         name: Free Up Disk Space
