@@ -1,0 +1,105 @@
+#!/bin/bash
+
+set -eo pipefail
+
+RED="\033[31;1m"
+GREEN="\033[32;1m"
+YELLOW="\033[33;1m"
+BLUE="\033[34;1m"
+PURPLE="\033[35;1m"
+CYAN="\033[36;1m"
+WHITE="\033[37;1m"
+NC="\033[0m"
+
+if [[ $# -lt 1 || -z "$1" ]]; then
+    echo -e "${WHITE}Usage: $0 <target>${NC}" >&2
+    echo -e "${BLUE}Example: $0 ${CYAN}x86_64-w64-mingw32${NC}" >&2
+    exit 1
+fi
+
+TARGET=$1
+if [[ ! -d "targets/${TARGET}" ]]; then
+    echo -e "${RED}Error: target '${TARGET}' not found in targets/${NC}" >&2
+    exit 1
+fi
+
+# Enable Kitware repo
+test -f /usr/share/keyrings/kitware-archive-keyring.gpg || {
+  wget -O - https://apt.kitware.com/keys/kitware-archive-latest.asc 2>/dev/null | \
+    gpg --dearmor | \
+    sudo tee /usr/share/keyrings/kitware-archive-keyring.gpg > /dev/null; }
+echo "deb [signed-by=/usr/share/keyrings/kitware-archive-keyring.gpg] \
+https://apt.kitware.com/ubuntu/ noble main" | \
+  sudo tee /etc/apt/sources.list.d/kitware.list > /dev/null
+
+# packages
+export DEBIAN_FRONTEND=noninteractive
+PACKAGES=(
+    automake bison build-essential bzip2 ca-certificates cmake 
+    curl flex gawk gdb git gperf gpg help2man libncurses-dev
+    libssl-dev libtool-bin libzstd-dev meson ninja-build pkg-config 
+    python3 rsync texinfo unzip wget xz-utils zstd
+)
+
+sudo -E apt-get update -qy
+sudo -E apt-get install -y --no-install-recommends "${PACKAGES[@]}"
+
+# patch
+pushd builder
+git reset --hard HEAD
+git clean -fd
+shopt -s nullglob
+for i in ../targets/"${TARGET}"/*.patch; do
+    patch -Np1 -i "$i"
+done
+shopt -u nullglob
+popd
+
+# crosstool-ng
+sudo mkdir -p /opt
+sudo chown 0777 /opt
+sudo rm -rf /opt/ct-ng
+pushd builder
+./bootstrap
+./configure --prefix=/opt/ct-ng
+make -j"$(nproc)"
+sudo make install
+export CT_BIN="/opt/ct-ng/bin/ct-ng"
+popd
+
+# build
+rm -rf build
+mkdir -p build
+cp targets/"${TARGET}"/config build/.config
+
+# Configure tarballs directory for download caching
+{
+  echo 'CT_LOCAL_TARBALLS_DIR="/mnt/tarballs"'
+  echo 'CT_SAVE_TARBALLS=y'
+} >>build/.config 
+
+# build as root
+{
+  echo 'CT_ALLOW_BUILD_AS_ROOT=y'
+  echo 'CT_ALLOW_BUILD_AS_ROOT_SURE=y'
+} >>build/.config
+
+pushd build
+"${CT_BIN}" olddefconfig
+"${CT_BIN}" build."$(nproc)"
+popd
+
+# Copying toolchain to PWD
+sudo mv /opt/x-tools/"${TARGET}" .
+sudo chown -R "$(id -u):$(id -g)" "${TARGET}"
+sudo chmod -R u+rwX "${TARGET}"
+
+p="$(pwd)/${TARGET}"
+while [ "$p" != "/" ] && [ -n "$p" ]; do
+  p="$(dirname "$p")"
+  sudo chmod u+x "$p" 2>/dev/null || true
+done
+
+# tarball
+sudo tar --sort=name --owner=0 --group=0 --numeric-owner -I 'xz -T0 -9' -cvf "${TARGET}".tar.xz "${TARGET}"
+sha256sum "${TARGET}".tar.xz >"${TARGET}".tar.xz.sha256
