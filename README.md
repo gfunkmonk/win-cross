@@ -6,8 +6,8 @@ This is a simple, lightweight project for making cross-compilation toolchain wit
 
 | Target                         | Binutils | GCC    | MinGW  |  MOLD  |
 |--------------------------------|----------|--------|--------|--------|
-| i686-w64-mingw32               | 2.46     | 15.2.0 | 14.0.0 | 2.41.0 |
-| x86_64-w64-mingw32             | 2.46     | 15.2.0 | 14.0.0 | 2.41.0 |
+| i686-w64-mingw32               | 2.46     | 15.2.0 | 14.0.0 | 2.42.0 |
+| x86_64-w64-mingw32             | 2.46     | 15.2.0 | 14.0.0 | 2.42.0 |
 
 ## How to use
 
