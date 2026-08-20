@@ -151,7 +151,7 @@ jobs:
           retention-days: 1
   build-arm:
     name: Build ARM (${{ matrix.target }})
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04-arm
     strategy:
       fail-fast: false
       matrix:
