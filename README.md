@@ -4,12 +4,12 @@ This is a simple, lightweight project for making cross-compilation toolchain wit
 
 ## Supported targets
 
-| Target                         |  GCC   | Binutils | MinGW  |  MOLD  |
-|--------------------------------|------- |----------|--------|--------|
-| i686-w64-mingw32               | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| x86_64-w64-mingw32             | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| aarch64-w64-mingw32            | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| armv7-w64-mingw32              | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
+|       _Target_      | **GCC** | **MinGW** | **Binutils** | **MOLD** |
+|:-------------------:|:-------:|:---------:|:------------:|:--------:|
+| i686-w64-mingw32    | 16.2.0  | 14.0.0    |     2.47     | 2.42.0   |
+| x86_64-w64-mingw32  | 16.2.0  | 14.0.0    |     2.47     | 2.42.0   |
+| aarch64-w64-mingw32 | 16.2.0  | 14.0.0    |     2.47     | 2.42.0   |
+| armv7-w64-mingw32   | 16.2.0  | 14.0.0    |     2.47     | 2.42.0   |
 
 ## How to use
 
