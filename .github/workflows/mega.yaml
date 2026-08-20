@@ -119,7 +119,7 @@ jobs:
       - name: Build
         uses: nick-fields/retry@v4
         with:
-          timeout_minutes: 60
+          timeout_minutes: 90
           max_attempts: 2
           command: |
             umask 0022
