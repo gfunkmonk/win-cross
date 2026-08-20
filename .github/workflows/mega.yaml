@@ -266,8 +266,8 @@ jobs:
     name: Release
     runs-on: ubuntu-slim
     needs:
-      - build_x86
-      - build_arm
+      - build-x86
+      - build-arm
     if: |
       !cancelled() && github.event.inputs.make_release == 'true'
     permissions:
