@@ -1,15 +1,16 @@
-# win-cross
+# $${\color{red}win\\color{white - }\color{lightblue}cross}$$
+<img width="398" height="84" alt="logo03-3" src="https://github.com/user-attachments/assets/dc66d03f-1529-4682-a4e0-76b896b64ccb" />
 
 This is a simple, lightweight project for making cross-compilation toolchain with MinGW.
 
 ## Supported targets
 
-| Target                         |  GCC   | Binutils | MinGW  |  MOLD  |
-|--------------------------------|------- |----------|--------|--------|
-| i686-w64-mingw32               | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| x86_64-w64-mingw32             | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| aarch64-w64-mingw32            | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
-| armv7-w64-mingw32              | 16.2.0 |   2.47   | 14.0.0 | 2.42.0 |
+|       _Target_      | **GCC** | **MinGW** | **Binutils** | **MOLD** |
+|:-------------------:|:-------:|:---------:|:------------:|:--------:|
+| $${\color{salmon}i686-w64-mingw32}$$    | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
+| $${\color{salmon}x86_64-w64-mingw32}$$  | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
+| $${\color{salmon}aarch64-w64-mingw32}$$ | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
+| $${\color{salmon}armv7-w64-mingw32}$$   | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
 
 ## How to use
 
