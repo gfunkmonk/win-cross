@@ -1,6 +1,8 @@
 # $${\color{red}win\\color{white - }\color{lightblue}cross}$$
 <img width="398" height="84" alt="logo03-3" src="https://github.com/user-attachments/assets/dc66d03f-1529-4682-a4e0-76b896b64ccb" />
 
+[![Release](https://github.com/gfunkmonk/win-cross/actions/workflows/release.yaml/badge.svg)](https://github.com/gfunkmonk/win-cross/actions/workflows/release.yaml)
+
 This is a simple, lightweight project for making cross-compilation toolchain with MinGW.
 
 ## Supported targets
