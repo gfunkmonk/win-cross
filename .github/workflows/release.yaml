@@ -66,6 +66,9 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
+      - name: Resolve builder commit
+        id: builder-commit
+        run: echo "sha=$(git -C builder rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: CCACHE Stuff
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -113,6 +116,11 @@ jobs:
           key: ccache-${{ matrix.target }}-${{ github.run_id }}
           restore-keys: |
             ccache-${{ matrix.target }}-
+      - name: CT-NG Binary Cache (Shared)
+        uses: actions/cache@v6
+        with:
+          path: /opt/ct-ng
+          key: ctng-${{ runner.arch }}-${{ steps.builder-commit.outputs.sha }}
       - if: '${{ inputs.sshserver }}'
         name: SSH Server-ing
         uses: valeriangalliat/action-sshd-cloudflared@v4
@@ -123,7 +131,7 @@ jobs:
           max_attempts: 2
           command: |
             umask 0022
-            sudo rm -rf /opt/*
+            sudo rm -rf /opt/x-tools
             chmod +x ./scripts/make
             bash ./scripts/make ${{ matrix.target }}
       #- if: failure()
@@ -178,6 +186,9 @@ jobs:
         with:
           fetch-depth: 1
           submodules: true
+      - name: Resolve builder commit
+        id: builder-commit
+        run: echo "sha=$(git -C builder rev-parse HEAD)" >> "$GITHUB_OUTPUT"
       - name: CCACHE Stuff
         env:
           DEBIAN_FRONTEND: noninteractive
@@ -225,6 +236,11 @@ jobs:
           key: ccache-${{ matrix.target }}-${{ github.run_id }}
           restore-keys: |
             ccache-${{ matrix.target }}-
+      - name: CT-NG Binary Cache (Shared)
+        uses: actions/cache@v6
+        with:
+          path: /opt/ct-ng
+          key: ctng-${{ runner.arch }}-${{ steps.builder-commit.outputs.sha }}
       - if: '${{ inputs.sshserver }}'
         name: SSH Server-ing
         uses: valeriangalliat/action-sshd-cloudflared@v4
@@ -235,7 +251,7 @@ jobs:
           max_attempts: 2
           command: |
             umask 0022
-            sudo rm -rf /opt/*
+            sudo rm -rf /opt/x-tools
             chmod +x ./scripts/make
             bash ./scripts/make ${{ matrix.target }}
       #- if: failure()
@@ -269,7 +285,7 @@ jobs:
       - build-x86
       - build-arm
     if: |
-      !cancelled() && github.event.inputs.make_release == 'true'
+      success() && github.event.inputs.make_release == 'true'
     permissions:
       contents: write
     steps:
