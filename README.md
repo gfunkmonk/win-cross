@@ -12,7 +12,6 @@ This is a simple, lightweight project for making cross-compilation toolchain wit
 | $${\color{salmon}i686-w64-mingw32}$$    | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
 | $${\color{salmon}x86_64-w64-mingw32}$$  | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
 | $${\color{salmon}aarch64-w64-mingw32}$$ | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
-| $${\color{salmon}armv7-w64-mingw32}$$   | $${\color{skyblue}16.2.0}$$  | $${\color{violet}14.0.0}$$    |     $${\color{hotpink}2.47}$$     | $${\color{#FFEE8C}2.42.0}$$   |
 
 ## How to use
 

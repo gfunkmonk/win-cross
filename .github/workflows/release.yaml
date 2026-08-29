@@ -163,7 +163,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        target: [armv7-w64-mingw32, aarch64-w64-mingw32]
+        target: [aarch64-w64-mingw32]
     steps:
       - if: '${{ inputs.freespace }}'
         name: Free Up Disk Space
