@@ -39,7 +39,7 @@ permissions:
 jobs:
   build-x86:
     name: Build x86 (${{ matrix.target }})
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
